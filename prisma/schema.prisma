@@ -1,0 +1,238 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model HeroBadge {
+  id        String   @id @default(cuid())
+  text      String
+  variant   String   @default("default")
+  isActive  Boolean  @default(true)
+  order     Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("hero_badges")
+}
+
+model NewsEvent {
+  id          String   @id @default(cuid())
+  type        String   // "news", "event", "podcast", "report"
+  title       String
+  description String
+  content     String?
+  imageUrl    String?
+  category    String?
+  eventDate   DateTime?
+  location    String?
+  author      String?
+  role        String?
+  podcastDuration String? // For podcasts: "23:45"
+  podcastPlatforms String? // For podcasts: "Apple Podcasts, Google Podcasts, Stitcher"
+  audioUrl    String? // For podcasts: link to audio file
+  reportUrl   String? // For reports: link to PDF/document
+  isActive    Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  views       Int      @default(0)
+  order       Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("news_events")
+}
+
+model Contact {
+  id         String    @id @default(cuid())
+  name       String
+  email      String
+  phone      String?
+  subject    String
+  message    String
+  isRead     Boolean   @default(false)
+  isReplied  Boolean   @default(false)
+  reply      String?
+  repliedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@map("contacts")
+}
+
+model VisitRequest {
+  id            String    @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  preferredDate String
+  preferredTime String
+  groupSize     Int       @default(1)
+  interests     String    // JSON string array
+  specialRequests String?
+  status        String    @default("pending")
+  adminNotes    String?
+  respondedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("visit_requests")
+}
+
+model Admission {
+  id          String   @id @default(cuid())
+  type        String   // "requirement", "deadline", "fee", "program", "document"
+  title       String
+  description String
+  details     String?
+  amount      String?
+  deadline    String?
+  isRequired  Boolean  @default(true)
+  isActive    Boolean  @default(true)
+  order       Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("admissions")
+}
+
+model Research {
+  id             String    @id @default(cuid())
+  type           String    // "project", "publication", "grant", "collaboration", "facility", "achievement"
+  title          String
+  description    String
+  details        String?
+  leadResearcher String?
+  department     String?
+  funding        String?
+  publicationDate String?
+  imageUrl       String?
+  isActive       Boolean   @default(true)
+  isFeatured     Boolean   @default(false)
+  order          Int       @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("research")
+}
+
+model StudentLife {
+  id          String   @id @default(cuid())
+  type        String   // "event", "club", "facility", "service", "housing", "dining"
+  title       String
+  description String
+  details     String?
+  category    String?
+  location    String?
+  contactInfo String?
+  cost        String?
+  capacity    Int?
+  schedule    String?
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  order       Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("student_life")
+}
+
+model Program {
+  id             String   @id @default(cuid())
+  name           String
+  code           String   @unique
+  collegeId      Int
+  departmentId   Int?
+  duration       Int      @default(4)
+  creditsRequired Int     @default(120)
+  department     String?
+  degreeType     String   // "Certificate", "Diploma", "Bachelor", "Master", "PhD"
+  description    String?
+  requirements   String?
+  location       String   @default("On Campus")
+  applicationDeadline DateTime?
+  tuition        String?
+  status         String   @default("active")
+  isActive       Boolean  @default(true)
+  order          Int      @default(1)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("programs")
+}
+
+model College {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  deanId      Int?
+  logo        String?
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("colleges")
+}
+
+model Department {
+  id         Int      @id @default(autoincrement())
+  name       String
+  collegeId  Int
+  headId     Int?
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("departments")
+}
+
+model Application {
+  id            String   @id @default(cuid())
+  // Basic applicant info (from Google Form)
+  firstName     String
+  lastName      String
+  email         String
+  phone         String?
+  programId     Int?
+  collegeId     Int?
+
+  // Payment tracking
+  transactionId String?  @unique
+  flutterwaveId String?
+  paymentStatus String   @default("pending") // pending, completed, failed, refunded
+  paymentAmount Int?     // Amount in UGX
+  paymentDate   DateTime?
+  paymentMethod String?  // mtn, airtel, card, bank
+
+  // Application status
+  status        String   @default("submitted") // submitted, under_review, approved, rejected
+  submittedAt   DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("applications")
+}
+
+model Scholarship {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  deadline    DateTime?
+  amount      String?  // e.g., "50% tuition", "$5000", "Full coverage"
+  requirements String?
+  eligibility String?
+  applicationUrl String?
+  isActive    Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  order       Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("scholarships")
+}

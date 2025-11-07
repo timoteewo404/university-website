@@ -1,0 +1,3 @@
+- [ ] Convert provided HTML to JSX for "Latest at IQS" section
+- [ ] Insert the JSX section in FeaturesSection.tsx before the Upcoming Events div
+- [ ] Verify the page renders correctly
