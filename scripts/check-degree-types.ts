@@ -1,5 +1,5 @@
-require('dotenv').config();
-const { PrismaClient } = require('@prisma/client')
+import 'dotenv/config';
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -12,10 +12,10 @@ async function main() {
     }
   });
 
-  const counts = programs.reduce((acc, p) => {
+  const counts = programs.reduce((acc: Record<string, number>, p: { degreeType: string }) => {
     acc[p.degreeType] = (acc[p.degreeType] || 0) + 1;
     return acc;
-  }, {});
+  }, {} as Record<string, number>);
 
   console.log('Degree type counts:', counts);
 }
