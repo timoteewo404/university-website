@@ -236,3 +236,33 @@ model Scholarship {
 
   @@map("scholarships")
 }
+
+model ApplicationTimeline {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  date        DateTime
+  type        String   // "deadline", "event", "milestone"
+  isActive    Boolean  @default(true)
+  order       Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("application_timeline")
+}
+
+model ScholarshipOpportunity {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  eligibility String
+  amount      String
+  deadline    DateTime
+  type        String   // "merit", "need", "athletic", "international", "other"
+  isActive    Boolean  @default(true)
+  order       Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("scholarship_opportunities")
+}

@@ -298,6 +298,36 @@ export default function AdminDashboard() {
                   </Button>
                 </CardContent>
               </Card>
+
+              <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Calendar className="mr-2 h-5 w-5" />
+                    Application Timeline
+                  </CardTitle>
+                  <CardDescription>Manage application deadlines and important dates</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button className="w-full" asChild>
+                    <Link href="/admin/admissions/application-timeline">Manage Timeline</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <GraduationCap className="mr-2 h-5 w-5" />
+                    Scholarship Opportunities
+                  </CardTitle>
+                  <CardDescription>Update scholarship information and requirements</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button className="w-full" asChild>
+                    <Link href="/admin/admissions/scholarship-opportunities">Manage Scholarships</Link>
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 
