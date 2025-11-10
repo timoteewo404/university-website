@@ -432,6 +432,206 @@ async function main() {
     });
   }
 
+  // Seed Scholarships
+  const scholarshipsData = [
+    {
+      title: 'Half Tuition Scholarship',
+      description: '500 scholarships covering 50% of tuition fees for exceptional students demonstrating academic excellence and leadership potential.',
+      deadline: new Date('2026-04-30'),
+      amount: '50% tuition coverage',
+      requirements: 'Merit-based, academic excellence, leadership potential',
+      eligibility: 'Undergraduate students with GPA 3.5+, demonstrated leadership',
+      applicationUrl: '/apply/scholarship/half-tuition',
+      isActive: true,
+      isFeatured: true,
+      order: 1
+    },
+    {
+      title: 'Full Scholarship Program',
+      description: 'Complete tuition coverage for outstanding students from underserved communities.',
+      deadline: new Date('2026-03-15'),
+      amount: '100% tuition coverage',
+      requirements: 'Need-based, academic merit, community service',
+      eligibility: 'Students from low-income families, academic excellence required',
+      applicationUrl: '/apply/scholarship/full-scholarship',
+      isActive: true,
+      isFeatured: true,
+      order: 2
+    },
+    {
+      title: 'STEM Excellence Scholarship',
+      description: 'Full scholarship for exceptional students pursuing degrees in Science, Technology, Engineering, and Mathematics.',
+      deadline: new Date('2026-02-28'),
+      amount: '100% tuition + stipend',
+      requirements: 'STEM majors, GPA 3.8+, research experience preferred',
+      eligibility: 'Undergraduate STEM students, demonstrated research interest',
+      applicationUrl: '/apply/scholarship/stem-excellence',
+      isActive: true,
+      isFeatured: false,
+      order: 3
+    },
+    {
+      title: 'International Student Scholarship',
+      description: 'Scholarships for outstanding international students to study at our university.',
+      deadline: new Date('2026-01-31'),
+      amount: '75% tuition coverage',
+      requirements: 'International students, TOEFL/IELTS scores, academic merit',
+      eligibility: 'Non-US citizens, strong academic record',
+      applicationUrl: '/apply/scholarship/international',
+      isActive: true,
+      isFeatured: false,
+      order: 4
+    },
+    {
+      title: 'Athletic Scholarship',
+      description: 'Scholarships for student-athletes competing in intercollegiate sports.',
+      deadline: new Date('2026-05-15'),
+      amount: 'Partial to full tuition',
+      requirements: 'Athletic excellence, academic eligibility',
+      eligibility: 'Student-athletes, maintain academic standards',
+      applicationUrl: '/apply/scholarship/athletic',
+      isActive: true,
+      isFeatured: false,
+      order: 5
+    }
+  ];
+
+  for (const scholarship of scholarshipsData) {
+    await prisma.scholarship.upsert({
+      where: { title: scholarship.title },
+      update: scholarship,
+      create: scholarship
+    });
+  }
+
+  // Seed Scholarship Opportunities
+  const scholarshipOpportunitiesData = [
+    {
+      title: 'Need-Based Financial Aid',
+      description: 'Financial assistance for students demonstrating financial need.',
+      deadline: new Date('2026-06-01'),
+      amount: 'Up to $15,000/year',
+      requirements: 'FAFSA completion, financial need documentation',
+      eligibility: 'US citizens/permanent residents, demonstrated financial need',
+      applicationUrl: '/apply/financial-aid',
+      isActive: true,
+      isFeatured: true,
+      order: 1
+    },
+    {
+      title: 'Work-Study Program',
+      description: 'Part-time employment opportunities on campus with flexible hours.',
+      deadline: new Date('2026-08-01'),
+      amount: '$12-15/hour',
+      requirements: 'Enrolled student, good academic standing',
+      eligibility: 'Undergraduate students, work-study eligible',
+      applicationUrl: '/apply/work-study',
+      isActive: true,
+      isFeatured: false,
+      order: 2
+    },
+    {
+      title: 'Emergency Aid Fund',
+      description: 'Short-term financial assistance for unexpected emergencies.',
+      deadline: new Date('2026-12-31'),
+      amount: 'Up to $1,000',
+      requirements: 'Documented emergency, current enrollment',
+      eligibility: 'All enrolled students experiencing financial emergencies',
+      applicationUrl: '/apply/emergency-aid',
+      isActive: true,
+      isFeatured: false,
+      order: 3
+    },
+    {
+      title: 'Graduate Research Assistantships',
+      description: 'Paid research positions for graduate students.',
+      deadline: new Date('2026-03-01'),
+      amount: '$18,000-25,000/year + tuition waiver',
+      requirements: 'Graduate student status, research experience',
+      eligibility: 'Masters/PhD students in research programs',
+      applicationUrl: '/apply/graduate-assistantship',
+      isActive: true,
+      isFeatured: true,
+      order: 4
+    },
+    {
+      title: 'Diversity & Inclusion Scholarship',
+      description: 'Supporting underrepresented minority students in higher education.',
+      deadline: new Date('2026-02-15'),
+      amount: '75% tuition coverage',
+      requirements: 'Underrepresented minority status, academic merit',
+      eligibility: 'Underrepresented minority students',
+      applicationUrl: '/apply/diversity-scholarship',
+      isActive: true,
+      isFeatured: true,
+      order: 5
+    },
+    {
+      title: 'Community Service Scholarship',
+      description: 'Recognition for students with exceptional community service records.',
+      deadline: new Date('2026-04-01'),
+      amount: '25% tuition coverage',
+      requirements: 'Minimum 100 hours community service/year',
+      eligibility: 'Students with documented community service',
+      applicationUrl: '/apply/community-service',
+      isActive: true,
+      isFeatured: false,
+      order: 6
+    }
+  ];
+
+  for (const opportunity of scholarshipOpportunitiesData) {
+    await prisma.scholarshipOpportunity.upsert({
+      where: { title: opportunity.title },
+      update: opportunity,
+      create: opportunity
+    });
+  }
+
+  // Seed Application Timeline
+  const timelineData = [
+    {
+      title: "Early Application",
+      description: "Submit your application early for priority consideration and merit scholarships",
+      date: new Date('2024-11-15'),
+      type: "deadline",
+      isActive: true,
+      order: 1
+    },
+    {
+      title: "Regular Application",
+      description: "Standard application deadline for fall 2025 admission",
+      date: new Date('2025-01-15'),
+      type: "deadline",
+      isActive: true,
+      order: 2
+    },
+    {
+      title: "Decisions Released",
+      description: "Admission decisions and scholarship notifications sent to applicants",
+      date: new Date('2025-03-15'),
+      type: "milestone",
+      isActive: true,
+      order: 3
+    },
+    {
+      title: "Enrollment Deadline",
+      description: "Final deadline to accept admission offer and submit enrollment deposit",
+      date: new Date('2025-05-01'),
+      type: "deadline",
+      isActive: true,
+      order: 4
+    }
+  ];
+
+  for (const timeline of timelineData) {
+    await prisma.applicationTimeline.upsert({
+      where: { title: timeline.title },
+      update: timeline,
+      create: timeline
+    });
+  }
+
   console.log('Seeding finished.')
 }
 
