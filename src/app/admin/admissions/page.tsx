@@ -478,13 +478,21 @@ export default function AdmissionsManagement() {
                         <div className="flex justify-between">
                           <span>Deadline:</span>
                           <span className="font-medium text-red-600">
-                            {new Date(item.deadline).toLocaleDateString()}
+                            {new Date(item.deadline).toLocaleDateString('en-US', { 
+                              day: 'numeric', 
+                              month: 'short', 
+                              year: 'numeric' 
+                            })}
                           </span>
                         </div>
                       )}
                       <div className="flex justify-between">
                         <span>Updated:</span>
-                        <span>{new Date(item.updatedAt).toLocaleDateString()}</span>
+                        <span>{new Date(item.updatedAt).toLocaleDateString('en-US', { 
+                          day: 'numeric', 
+                          month: 'short', 
+                          year: 'numeric' 
+                        })}</span>
                       </div>
                     </div>
                     

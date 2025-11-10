@@ -293,7 +293,11 @@ export default function ApplicationTimelineManagement() {
                   <div className="flex-1">
                     <CardTitle className="text-lg">{item.title}</CardTitle>
                     <CardDescription className="mt-1">
-                      {new Date(item.date).toLocaleDateString()}
+                      {new Date(item.date).toLocaleDateString('en-US', { 
+                        day: 'numeric', 
+                        month: 'short', 
+                        year: 'numeric' 
+                      })}
                     </CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
-    "build": "prisma generate && prisma db seed && next build",
+    "build": "prisma generate && next build",
+    "build:seed": "prisma generate && prisma db seed && next build",
     "start": "next start",
     "postbuild": "prisma generate",
     "lint": "bunx tsc --noEmit && next lint",
@@ -13,7 +14,7 @@
     "db:seed": "prisma db seed"
   },
   "prisma": {
-    "seed": "npx tsx prisma/seed-colleges.ts && npx tsx prisma/seed-news-events.ts && npx tsx prisma/seed-research.ts && npx tsx prisma/seed-student-life.ts && npx tsx prisma/seed-scholarships.ts"
+    "seed": "npx tsx prisma/seed-colleges.ts && npx tsx prisma/seed-news-events.ts && npx tsx prisma/seed-research.ts && npx tsx prisma/seed-student-life.ts && npx tsx prisma/seed-scholarships.ts && npx tsx prisma/seed-scholarship-opportunities.ts && npx tsx prisma/seed-application-timeline.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

@@ -28,7 +28,64 @@ export const metadata: Metadata = {
   description: "Apply to EYECAB International University. Learn about our need-blind admissions, scholarship opportunities, and application requirements for our world-class programs.",
 };
 
-export default function AdmissionsPage() {
+// Force dynamic rendering since we fetch data from APIs
+export const dynamic = 'force-dynamic';
+
+interface ScholarshipItem {
+  id: string;
+  title: string;
+  description: string;
+  eligibility: string;
+  amount: string;
+  deadline: string;
+  type: string;
+  isActive: boolean;
+  order: number;
+}
+
+interface TimelineItem {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  type: string;
+  isActive: boolean;
+  order: number;
+}
+
+async function getScholarshipOpportunities(): Promise<ScholarshipItem[]> {
+  try {
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://your-domain.com' 
+      : 'http://localhost:3001';
+    const response = await fetch(`${baseUrl}/api/admin/admissions/scholarship-opportunities`, {
+      cache: 'no-store'
+    });
+    const data = await response.json();
+    return data.success ? data.data.filter((item: ScholarshipItem) => item.isActive) : [];
+  } catch (error) {
+    console.error('Failed to fetch scholarship opportunities:', error);
+    return [];
+  }
+}
+
+async function getApplicationTimeline(): Promise<TimelineItem[]> {
+  try {
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://your-domain.com' 
+      : 'http://localhost:3001';
+    const response = await fetch(`${baseUrl}/api/admin/admissions/application-timeline`, {
+      cache: 'no-store'
+    });
+    const data = await response.json();
+    return data.success ? data.data.filter((item: TimelineItem) => item.isActive) : [];
+  } catch (error) {
+    console.error('Failed to fetch application timeline:', error);
+    return [];
+  }
+}
+
+export default async function AdmissionsPage() {
   const admissionRequirements = [
     {
       title: "Academic Excellence",
@@ -52,55 +109,9 @@ export default function AdmissionsPage() {
     }
   ];
 
-  const scholarshipPrograms = [
-    {
-      name: "Presidential Scholarship",
-      amount: "100% Tuition + Living Expenses",
-      criteria: "Top 1% of applicants with exceptional leadership potential",
-      recipients: "50 students annually"
-    },
-    {
-      name: "Excellence Scholarship",
-      amount: "75% Tuition Coverage",
-      criteria: "Outstanding academic achievement and community impact",
-      recipients: "200 students annually"
-    },
-    {
-      name: "Innovation Scholarship",
-      amount: "50% Tuition Coverage",
-      criteria: "Demonstrated innovation in STEM, arts, or social impact",
-      recipients: "300 students annually"
-    },
-    {
-      name: "Africa Leadership Scholarship",
-      amount: "100% Tuition for African Students",
-      criteria: "Exceptional African students committed to continental development",
-      recipients: "500 students annually"
-    }
-  ];
-
-  const applicationTimeline = [
-    {
-      phase: "Early Application",
-      deadline: "November 15, 2024",
-      description: "Submit your application early for priority consideration and merit scholarships"
-    },
-    {
-      phase: "Regular Application",
-      deadline: "January 15, 2025",
-      description: "Standard application deadline for fall 2025 admission"
-    },
-    {
-      phase: "Decisions Released",
-      deadline: "March 30, 2025",
-      description: "Admission decisions and scholarship notifications sent to applicants"
-    },
-    {
-      phase: "Enrollment Deadline",
-      deadline: "May 1, 2025",
-      description: "Confirm your enrollment and submit your enrollment deposit"
-    }
-  ];
+  // Fetch data from API instead of using hardcoded arrays
+  const scholarshipPrograms = await getScholarshipOpportunities();
+  const applicationTimeline = await getApplicationTimeline();
 
   const schools = [
     {
@@ -303,17 +314,17 @@ export default function AdmissionsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {scholarshipPrograms.map((scholarship, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-0 shadow-md hover:-translate-y-1">
+            {scholarshipPrograms.length > 0 ? scholarshipPrograms.map((scholarship, index) => (
+              <Card key={scholarship.id || index} className="group hover:shadow-lg transition-all duration-300 border-0 shadow-md hover:-translate-y-1">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between mb-3">
-                    <Badge variant="outline" className="text-blue-600 border-blue-200">
-                      {scholarship.recipients}
+                    <Badge variant="outline" className="text-blue-600 border-blue-200 capitalize">
+                      {scholarship.type}
                     </Badge>
                     <Award className="h-6 w-6 text-yellow-500" />
                   </div>
                   <CardTitle className="text-xl font-bold text-gray-900">
-                    {scholarship.name}
+                    {scholarship.title}
                   </CardTitle>
                   <div className="text-2xl font-bold text-blue-600">
                     {scholarship.amount}
@@ -321,14 +332,26 @@ export default function AdmissionsPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-4">
-                    {scholarship.criteria}
+                    {scholarship.eligibility}
+                  </p>
+                  <p className="text-sm text-gray-500 mb-2">
+                    <strong>Deadline:</strong> {new Date(scholarship.deadline).toLocaleDateString('en-US', { 
+                      day: 'numeric', 
+                      month: 'short', 
+                      year: 'numeric' 
+                    })}
                   </p>
                   <Button variant="ghost" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-0">
                     Learn More →
                   </Button>
                 </CardContent>
               </Card>
-            ))}
+            )) : (
+              <div className="col-span-full text-center py-8">
+                <Award className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-500">Scholarship opportunities will be announced soon.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -347,17 +370,21 @@ export default function AdmissionsPage() {
 
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {applicationTimeline.map((phase, index) => (
-                <Card key={index} className="text-center group hover:shadow-lg transition-shadow border-0 shadow-md">
+              {applicationTimeline.length > 0 ? applicationTimeline.map((phase, index) => (
+                <Card key={phase.id || index} className="text-center group hover:shadow-lg transition-shadow border-0 shadow-md">
                   <CardHeader className="pb-3">
                     <div className="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-100 transition-colors">
                       <Clock className="h-8 w-8 text-blue-600" />
                     </div>
                     <CardTitle className="text-lg font-bold text-gray-900">
-                      {phase.phase}
+                      {phase.title}
                     </CardTitle>
                     <div className="text-blue-600 font-semibold">
-                      {phase.deadline}
+                      {new Date(phase.date).toLocaleDateString('en-US', { 
+                        day: 'numeric', 
+                        month: 'short', 
+                        year: 'numeric' 
+                      })}
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -366,7 +393,12 @@ export default function AdmissionsPage() {
                     </p>
                   </CardContent>
                 </Card>
-              ))}
+              )) : (
+                <div className="col-span-full text-center py-8">
+                  <Clock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-500">Application timeline will be announced soon.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

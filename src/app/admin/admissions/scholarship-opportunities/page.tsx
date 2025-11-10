@@ -331,7 +331,11 @@ export default function ScholarshipOpportunitiesManagement() {
                   <div className="flex-1">
                     <CardTitle className="text-lg">{item.title}</CardTitle>
                     <CardDescription className="mt-1">
-                      Deadline: {new Date(item.deadline).toLocaleDateString()}
+                      Deadline: {new Date(item.deadline).toLocaleDateString('en-US', { 
+                        day: 'numeric', 
+                        month: 'short', 
+                        year: 'numeric' 
+                      })}
                     </CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
