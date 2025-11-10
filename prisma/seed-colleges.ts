@@ -1,10 +1,45 @@
-require('dotenv').config();
-const { PrismaClient } = require('@prisma/client')
+import { config } from 'dotenv';
+import { PrismaClient } from '@prisma/client';
+
+config();
 
 const prisma = new PrismaClient()
 
 async function main() {
   console.log('Seeding colleges and departments...')
+
+  // Seed Hero Badges
+  const heroBadgeData = [
+    {
+      id: '1',
+      text: 'Leading Innovation in Higher Education',
+      variant: 'default',
+      isActive: true,
+      order: 1
+    },
+    {
+      id: '2',
+      text: 'Ranked #1 University in East Africa',
+      variant: 'secondary',
+      isActive: true,
+      order: 2
+    },
+    {
+      id: '3',
+      text: 'Excellence in Research & Development',
+      variant: 'outline',
+      isActive: true,
+      order: 3
+    }
+  ];
+
+  for (const badge of heroBadgeData) {
+    await prisma.heroBadge.upsert({
+      where: { id: badge.id },
+      update: badge,
+      create: badge
+    });
+  }
 
   // Seed Colleges
   const collegeData = [
