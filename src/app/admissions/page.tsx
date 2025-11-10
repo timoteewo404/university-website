@@ -22,6 +22,7 @@ import {
   Microscope
 } from "lucide-react";
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "Admissions | EYECAB International University",
@@ -55,14 +56,14 @@ interface TimelineItem {
 
 async function getScholarshipOpportunities(): Promise<ScholarshipItem[]> {
   try {
-    const baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://your-domain.com' 
-      : 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/admin/admissions/scholarship-opportunities`, {
-      cache: 'no-store'
+    const scholarshipItems = await prisma.scholarshipOpportunity.findMany({
+      where: { isActive: true },
+      orderBy: [
+        { order: 'asc' },
+        { deadline: 'asc' }
+      ]
     });
-    const data = await response.json();
-    return data.success ? data.data.filter((item: ScholarshipItem) => item.isActive) : [];
+    return scholarshipItems;
   } catch (error) {
     console.error('Failed to fetch scholarship opportunities:', error);
     return [];
@@ -71,14 +72,14 @@ async function getScholarshipOpportunities(): Promise<ScholarshipItem[]> {
 
 async function getApplicationTimeline(): Promise<TimelineItem[]> {
   try {
-    const baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://your-domain.com' 
-      : 'http://localhost:3001';
-    const response = await fetch(`${baseUrl}/api/admin/admissions/application-timeline`, {
-      cache: 'no-store'
+    const timelineItems = await prisma.applicationTimeline.findMany({
+      where: { isActive: true },
+      orderBy: [
+        { order: 'asc' },
+        { date: 'asc' }
+      ]
     });
-    const data = await response.json();
-    return data.success ? data.data.filter((item: TimelineItem) => item.isActive) : [];
+    return timelineItems;
   } catch (error) {
     console.error('Failed to fetch application timeline:', error);
     return [];
