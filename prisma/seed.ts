@@ -465,6 +465,7 @@ async function main() {
   // Seed Scholarships
   const scholarshipsData = [
     {
+      id: 'scholarship-1',
       title: 'Half Tuition Scholarship',
       description: '500 scholarships covering 50% of tuition fees for exceptional students demonstrating academic excellence and leadership potential.',
       deadline: new Date('2026-04-30'),
@@ -477,6 +478,7 @@ async function main() {
       order: 1
     },
     {
+      id: 'scholarship-2',
       title: 'Full Scholarship Program',
       description: 'Complete tuition coverage for outstanding students from underserved communities.',
       deadline: new Date('2026-03-15'),
@@ -489,6 +491,7 @@ async function main() {
       order: 2
     },
     {
+      id: 'scholarship-3',
       title: 'STEM Excellence Scholarship',
       description: 'Full scholarship for exceptional students pursuing degrees in Science, Technology, Engineering, and Mathematics.',
       deadline: new Date('2026-02-28'),
@@ -501,6 +504,7 @@ async function main() {
       order: 3
     },
     {
+      id: 'scholarship-4',
       title: 'International Student Scholarship',
       description: 'Scholarships for outstanding international students to study at our university.',
       deadline: new Date('2026-01-31'),
@@ -513,6 +517,7 @@ async function main() {
       order: 4
     },
     {
+      id: 'scholarship-5',
       title: 'Athletic Scholarship',
       description: 'Scholarships for student-athletes competing in intercollegiate sports.',
       deadline: new Date('2026-05-15'),
@@ -528,7 +533,7 @@ async function main() {
 
   for (const scholarship of scholarshipsData) {
     await prisma.scholarship.upsert({
-      where: { title: scholarship.title },
+      where: { id: scholarship.id },
       update: scholarship,
       create: scholarship
     });
@@ -537,6 +542,7 @@ async function main() {
   // Seed Scholarship Opportunities
   const scholarshipOpportunitiesData = [
     {
+      id: 'opportunity-1',
       title: 'Need-Based Financial Aid',
       description: 'Financial assistance for students demonstrating financial need.',
       deadline: new Date('2026-06-01'),
@@ -549,6 +555,7 @@ async function main() {
       order: 1
     },
     {
+      id: 'opportunity-2',
       title: 'Work-Study Program',
       description: 'Part-time employment opportunities on campus with flexible hours.',
       deadline: new Date('2026-08-01'),
@@ -561,6 +568,7 @@ async function main() {
       order: 2
     },
     {
+      id: 'opportunity-3',
       title: 'Emergency Aid Fund',
       description: 'Short-term financial assistance for unexpected emergencies.',
       deadline: new Date('2026-12-31'),
@@ -573,6 +581,7 @@ async function main() {
       order: 3
     },
     {
+      id: 'opportunity-4',
       title: 'Graduate Research Assistantships',
       description: 'Paid research positions for graduate students.',
       deadline: new Date('2026-03-01'),
@@ -585,6 +594,7 @@ async function main() {
       order: 4
     },
     {
+      id: 'opportunity-5',
       title: 'Diversity & Inclusion Scholarship',
       description: 'Supporting underrepresented minority students in higher education.',
       deadline: new Date('2026-02-15'),
@@ -597,6 +607,7 @@ async function main() {
       order: 5
     },
     {
+      id: 'opportunity-6',
       title: 'Community Service Scholarship',
       description: 'Recognition for students with exceptional community service records.',
       deadline: new Date('2026-04-01'),
@@ -612,7 +623,7 @@ async function main() {
 
   for (const opportunity of scholarshipOpportunitiesData) {
     await prisma.scholarshipOpportunity.upsert({
-      where: { title: opportunity.title },
+      where: { id: opportunity.id },
       update: opportunity,
       create: opportunity
     });
@@ -621,6 +632,7 @@ async function main() {
   // Seed Application Timeline
   const timelineData = [
     {
+      id: 'timeline-1',
       title: "Early Application",
       description: "Submit your application early for priority consideration and merit scholarships",
       date: new Date('2024-11-15'),
@@ -629,6 +641,7 @@ async function main() {
       order: 1
     },
     {
+      id: 'timeline-2',
       title: "Regular Application",
       description: "Standard application deadline for fall 2025 admission",
       date: new Date('2025-01-15'),
@@ -637,6 +650,7 @@ async function main() {
       order: 2
     },
     {
+      id: 'timeline-3',
       title: "Decisions Released",
       description: "Admission decisions and scholarship notifications sent to applicants",
       date: new Date('2025-03-15'),
@@ -645,6 +659,7 @@ async function main() {
       order: 3
     },
     {
+      id: 'timeline-4',
       title: "Enrollment Deadline",
       description: "Final deadline to accept admission offer and submit enrollment deposit",
       date: new Date('2025-05-01'),
@@ -656,7 +671,7 @@ async function main() {
 
   for (const timeline of timelineData) {
     await prisma.applicationTimeline.upsert({
-      where: { title: timeline.title },
+      where: { id: timeline.id },
       update: timeline,
       create: timeline
     });
