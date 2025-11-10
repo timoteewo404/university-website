@@ -83,206 +83,236 @@ async function main() {
   // Seed News & Events - already seeded
 
   // Seed Contacts
-  await prisma.contact.createMany({
-    data: [
-      {
-        id: '1',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '+1-555-0123',
-        subject: 'Admission Inquiry',
-        message: 'I am interested in applying to EYECAB University. Can you provide information about the admission process and scholarship opportunities?',
-        isRead: false,
-        isReplied: false
-      },
-      {
-        id: '2',
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        phone: '+1-555-0456',
-        subject: 'Partnership Opportunity',
-        message: 'We would like to discuss potential research collaboration opportunities with your institution.',
-        isRead: true,
-        isReplied: true,
-        reply: 'Thank you for your interest in partnering with EYECAB University. We would be happy to discuss collaboration opportunities.',
-        repliedAt: new Date('2025-10-14T16:00:00Z')
-      }
-    ]
-  })
+  const contactData = [
+    {
+      id: '1',
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      phone: '+1-555-0123',
+      subject: 'Admission Inquiry',
+      message: 'I am interested in applying to EYECAB University. Can you provide information about the admission process and scholarship opportunities?',
+      isRead: false,
+      isReplied: false
+    },
+    {
+      id: '2',
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      phone: '+1-555-0456',
+      subject: 'Partnership Opportunity',
+      message: 'We would like to discuss potential research collaboration opportunities with your institution.',
+      isRead: true,
+      isReplied: true,
+      reply: 'Thank you for your interest in partnering with EYECAB University. We would be happy to discuss collaboration opportunities.',
+      repliedAt: new Date('2025-10-14T16:00:00Z')
+    }
+  ];
+
+  for (const contact of contactData) {
+    await prisma.contact.upsert({
+      where: { id: contact.id },
+      update: contact,
+      create: contact
+    });
+  }
 
   // Seed Visit Requests
-  await prisma.visitRequest.createMany({
-    data: [
-      {
-        id: '1',
-        firstName: 'Alice',
-        lastName: 'Johnson',
-        email: 'alice.johnson@email.com',
-        phone: '+1-555-7890',
-        preferredDate: '2025-11-15',
-        preferredTime: '2:00 PM',
-        groupSize: 3,
-        interests: JSON.stringify(['Engineering', 'Computer Science', 'Campus Life']),
-        specialRequests: 'Would like to meet with faculty from the Engineering department',
-        status: 'pending'
-      },
-      {
-        id: '2',
-        firstName: 'David',
-        lastName: 'Chen',
-        email: 'david.chen@student.com',
-        phone: '+1-555-9012',
-        preferredDate: '2025-11-05',
-        preferredTime: '11:00 AM',
-        groupSize: 1,
-        interests: JSON.stringify(['Computer Science', 'Research Labs', 'International Programs']),
-        status: 'approved',
-        adminNotes: 'Approved for November 5th visit',
-        respondedAt: new Date('2025-10-20T10:00:00Z')
-      }
-    ]
-  })
+  const visitRequestData = [
+    {
+      id: '1',
+      firstName: 'Alice',
+      lastName: 'Johnson',
+      email: 'alice.johnson@email.com',
+      phone: '+1-555-7890',
+      preferredDate: '2025-11-15',
+      preferredTime: '2:00 PM',
+      groupSize: 3,
+      interests: JSON.stringify(['Engineering', 'Computer Science', 'Campus Life']),
+      specialRequests: 'Would like to meet with faculty from the Engineering department',
+      status: 'pending'
+    },
+    {
+      id: '2',
+      firstName: 'David',
+      lastName: 'Chen',
+      email: 'david.chen@student.com',
+      phone: '+1-555-9012',
+      preferredDate: '2025-11-05',
+      preferredTime: '11:00 AM',
+      groupSize: 1,
+      interests: JSON.stringify(['Computer Science', 'Research Labs', 'International Programs']),
+      status: 'approved',
+      adminNotes: 'Approved for November 5th visit',
+      respondedAt: new Date('2025-10-20T10:00:00Z')
+    }
+  ];
+
+  for (const visitRequest of visitRequestData) {
+    await prisma.visitRequest.upsert({
+      where: { id: visitRequest.id },
+      update: visitRequest,
+      create: visitRequest
+    });
+  }
 
   // Seed Admissions
-  await prisma.admission.createMany({
-    data: [
-      {
-        id: '1',
-        type: 'requirement',
-        title: 'Academic Transcripts',
-        description: 'Official transcripts from all previously attended institutions required',
-        details: 'Submit official transcripts directly from your school to our admissions office. Unofficial transcripts can be submitted for initial review.',
-        isRequired: true,
-        isActive: true,
-        order: 1
-      },
-      {
-        id: '2',
-        type: 'deadline',
-        title: 'Fall 2025 Application Deadline',
-        description: 'Final deadline for fall semester applications',
-        deadline: '2025-07-15',
-        isRequired: true,
-        isActive: true,
-        order: 2
-      },
-      {
-        id: '3',
-        type: 'fee',
-        title: 'Application Fee',
-        description: 'Non-refundable application processing fee',
-        amount: '$75',
-        isRequired: true,
-        isActive: true,
-        order: 3
-      }
-    ]
-  })
+  const admissionsData = [
+    {
+      id: '1',
+      type: 'requirement',
+      title: 'Academic Transcripts',
+      description: 'Official transcripts from all previously attended institutions required',
+      details: 'Submit official transcripts directly from your school to our admissions office. Unofficial transcripts can be submitted for initial review.',
+      isRequired: true,
+      isActive: true,
+      order: 1
+    },
+    {
+      id: '2',
+      type: 'deadline',
+      title: 'Fall 2025 Application Deadline',
+      description: 'Final deadline for fall semester applications',
+      deadline: '2025-07-15',
+      isRequired: true,
+      isActive: true,
+      order: 2
+    },
+    {
+      id: '3',
+      type: 'fee',
+      title: 'Application Fee',
+      description: 'Non-refundable application processing fee',
+      amount: '$75',
+      isRequired: true,
+      isActive: true,
+      order: 3
+    }
+  ];
+
+  for (const admission of admissionsData) {
+    await prisma.admission.upsert({
+      where: { id: admission.id },
+      update: admission,
+      create: admission
+    });
+  }
 
   // Seed Research
-  await prisma.research.createMany({
-    data: [
-      {
-        id: '1',
-        type: 'project',
-        title: 'AI Ethics and Bias Mitigation',
-        description: 'Comprehensive research on artificial intelligence bias detection and mitigation strategies.',
-        details: 'This project focuses on developing algorithmic solutions to identify and reduce bias in AI systems.',
-        leadResearcher: 'Dr. Maria Rodriguez',
-        department: 'Computer Science',
-        funding: '$250,000',
-        imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3',
-        isActive: true,
-        isFeatured: true,
-        order: 1
-      },
-      {
-        id: '2',
-        type: 'publication',
-        title: 'Climate Change Adaptation in Urban Planning',
-        description: 'Peer-reviewed study on sustainable urban development strategies for climate resilience.',
-        details: 'Published in the Journal of Environmental Planning, this research presents novel approaches to urban design.',
-        leadResearcher: 'Prof. Ahmed Hassan',
-        department: 'Environmental Sciences',
-        publicationDate: '2025-09-15',
-        imageUrl: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3',
-        isActive: true,
-        isFeatured: false,
-        order: 2
-      },
-      {
-        id: '3',
-        type: 'grant',
-        title: 'NSF Grant for Quantum Computing Research',
-        description: 'National Science Foundation funding for quantum algorithm development.',
-        details: 'Five-year grant to advance quantum computing applications in cryptography and optimization problems.',
-        leadResearcher: 'Dr. Sarah Chen',
-        department: 'Physics',
-        funding: '$1,200,000',
-        imageUrl: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3',
-        isActive: true,
-        isFeatured: true,
-        order: 3
-      }
-    ]
-  })
+  const researchData = [
+    {
+      id: '1',
+      type: 'project',
+      title: 'AI Ethics and Bias Mitigation',
+      description: 'Comprehensive research on artificial intelligence bias detection and mitigation strategies.',
+      details: 'This project focuses on developing algorithmic solutions to identify and reduce bias in AI systems.',
+      leadResearcher: 'Dr. Maria Rodriguez',
+      department: 'Computer Science',
+      funding: '$250,000',
+      imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3',
+      isActive: true,
+      isFeatured: true,
+      order: 1
+    },
+    {
+      id: '2',
+      type: 'publication',
+      title: 'Climate Change Adaptation in Urban Planning',
+      description: 'Peer-reviewed study on sustainable urban development strategies for climate resilience.',
+      details: 'Published in the Journal of Environmental Planning, this research presents novel approaches to urban design.',
+      leadResearcher: 'Prof. Ahmed Hassan',
+      department: 'Environmental Sciences',
+      publicationDate: '2025-09-15',
+      imageUrl: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3',
+      isActive: true,
+      isFeatured: false,
+      order: 2
+    },
+    {
+      id: '3',
+      type: 'grant',
+      title: 'NSF Grant for Quantum Computing Research',
+      description: 'National Science Foundation funding for quantum algorithm development.',
+      details: 'Five-year grant to advance quantum computing applications in cryptography and optimization problems.',
+      leadResearcher: 'Dr. Sarah Chen',
+      department: 'Physics',
+      funding: '$1,200,000',
+      imageUrl: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3',
+      isActive: true,
+      isFeatured: true,
+      order: 3
+    }
+  ];
+
+  for (const research of researchData) {
+    await prisma.research.upsert({
+      where: { id: research.id },
+      update: research,
+      create: research
+    });
+  }
 
   // Seed Student Life
-  await prisma.studentLife.createMany({
-    data: [
-      {
-        id: '1',
-        type: 'event',
-        title: 'Spring Festival 2025',
-        description: 'Annual spring celebration with live music, food vendors, and student performances.',
-        details: 'Join us for our biggest event of the year! The Spring Festival features live bands, cultural performances, local food vendors, and interactive activities.',
-        category: 'Cultural',
-        location: 'Main Campus Quad',
-        contactInfo: 'events@university.edu',
-        cost: 'Free',
-        capacity: 2000,
-        schedule: 'April 15, 2025 12:00 PM - 8:00 PM',
-        imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3',
-        isActive: true,
-        isFeatured: true,
-        order: 1
-      },
-      {
-        id: '2',
-        type: 'club',
-        title: 'Computer Science Society',
-        description: 'Student organization for CS majors and tech enthusiasts.',
-        details: 'The CS Society organizes coding competitions, tech talks, hackathons, and networking events with industry professionals.',
-        category: 'Academic',
-        location: 'Engineering Building Room 201',
-        contactInfo: 'css@student.university.edu',
-        cost: '$25/semester',
-        capacity: 150,
-        schedule: 'Meetings every Friday 4:00 PM',
-        imageUrl: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3',
-        isActive: true,
-        isFeatured: true,
-        order: 2
-      },
-      {
-        id: '3',
-        type: 'facility',
-        title: 'State-of-the-Art Fitness Center',
-        description: 'Modern fitness facility with cardio equipment, weights, and group classes.',
-        details: 'Our 15,000 sq ft fitness center features the latest equipment, group fitness studios, a rock climbing wall, and an indoor track.',
-        category: 'Recreation',
-        location: 'Student Recreation Center',
-        contactInfo: 'fitness@university.edu',
-        cost: 'Included in student fees',
-        capacity: 300,
-        schedule: 'Daily 5:00 AM - 11:00 PM',
-        imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3',
-        isActive: true,
-        isFeatured: true,
-        order: 3
-      }
-    ]
-  })
+  const studentLifeData = [
+    {
+      id: '1',
+      type: 'event',
+      title: 'Spring Festival 2025',
+      description: 'Annual spring celebration with live music, food vendors, and student performances.',
+      details: 'Join us for our biggest event of the year! The Spring Festival features live bands, cultural performances, local food vendors, and interactive activities.',
+      category: 'Cultural',
+      location: 'Main Campus Quad',
+      contactInfo: 'events@university.edu',
+      cost: 'Free',
+      capacity: 2000,
+      schedule: 'April 15, 2025 12:00 PM - 8:00 PM',
+      imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3',
+      isActive: true,
+      isFeatured: true,
+      order: 1
+    },
+    {
+      id: '2',
+      type: 'club',
+      title: 'Computer Science Society',
+      description: 'Student organization for CS majors and tech enthusiasts.',
+      details: 'The CS Society organizes coding competitions, tech talks, hackathons, and networking events with industry professionals.',
+      category: 'Academic',
+      location: 'Engineering Building Room 201',
+      contactInfo: 'css@student.university.edu',
+      cost: '$25/semester',
+      capacity: 150,
+      schedule: 'Meetings every Friday 4:00 PM',
+      imageUrl: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3',
+      isActive: true,
+      isFeatured: true,
+      order: 2
+    },
+    {
+      id: '3',
+      type: 'facility',
+      title: 'State-of-the-Art Fitness Center',
+      description: 'Modern fitness facility with cardio equipment, weights, and group classes.',
+      details: 'Our 15,000 sq ft fitness center features the latest equipment, group fitness studios, a rock climbing wall, and an indoor track.',
+      category: 'Recreation',
+      location: 'Student Recreation Center',
+      contactInfo: 'fitness@university.edu',
+      cost: 'Included in student fees',
+      capacity: 300,
+      schedule: 'Daily 5:00 AM - 11:00 PM',
+      imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3',
+      isActive: true,
+      isFeatured: true,
+      order: 3
+    }
+  ];
+
+  for (const studentLife of studentLifeData) {
+    await prisma.studentLife.upsert({
+      where: { id: studentLife.id },
+      update: studentLife,
+      create: studentLife
+    });
+  }
 
   // Seed Colleges
   const collegeData = [
