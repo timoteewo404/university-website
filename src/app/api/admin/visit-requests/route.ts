@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { sendEmail, generateVisitConfirmationEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -121,6 +122,22 @@ export async function PUT(request: NextRequest) {
       where: { id },
       data: updateData
     });
+
+    // Send confirmation email if status changed to approved
+    if (status === 'approved') {
+      try {
+        const emailHtml = generateVisitConfirmationEmail(updatedRequest);
+        await sendEmail({
+          to: updatedRequest.email,
+          subject: 'Your Visit Request Has Been Approved!',
+          html: emailHtml
+        });
+        console.log('Visit confirmation email sent to:', updatedRequest.email);
+      } catch (emailError) {
+        console.error('Failed to send visit confirmation email:', emailError);
+        // Don't fail the request if email fails, just log it
+      }
+    }
 
     return NextResponse.json({
       success: true,
