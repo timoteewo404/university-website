@@ -1,8 +1,11 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import {
   GraduationCap,
   MapPin,
@@ -13,10 +16,53 @@ import {
   Instagram,
   Linkedin,
   Youtube,
-  Globe
+  Globe,
+  CheckCircle,
+  AlertCircle
 } from "lucide-react";
 
 export function Footer() {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    setIsSubmitting(true);
+    setMessage('');
+    setMessageType(null);
+
+    try {
+      const response = await fetch('/api/admin/newsletters', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage('Thank you for subscribing! You\'ll receive our latest updates.');
+        setMessageType('success');
+        setEmail('');
+      } else {
+        setMessage(data.error || 'Failed to subscribe. Please try again.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Error subscribing to newsletter:', error);
+      setMessage('Failed to subscribe. Please try again.');
+      setMessageType('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-white">
       {/* Newsletter Section */}
@@ -27,14 +73,37 @@ export function Footer() {
             <p className="text-gray-300 mb-6">
               Get the latest updates on admissions, research breakthroughs, and campus news
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <Input
                 type="email"
                 placeholder="Enter your email"
                 className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
-              <Button className="bg-red-800 hover:bg-red-700">Subscribe</Button>
-            </div>
+              <Button
+                type="submit"
+                className="bg-red-800 hover:bg-red-700"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+              </Button>
+            </form>
+            {message && (
+              <div className={`mt-4 p-3 rounded-md flex items-center justify-center gap-2 ${
+                messageType === 'success'
+                  ? 'bg-green-100 text-green-800 border border-green-200'
+                  : 'bg-red-100 text-red-800 border border-red-200'
+              }`}>
+                {messageType === 'success' ? (
+                  <CheckCircle className="h-4 w-4" />
+                ) : (
+                  <AlertCircle className="h-4 w-4" />
+                )}
+                <span className="text-sm">{message}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

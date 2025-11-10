@@ -61,6 +61,8 @@ export default function VisitPage() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const visitOptions = [
     {
@@ -146,9 +148,64 @@ export default function VisitPage() {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      // Build interests array from form data
+      const interests = [];
+      if (formData.visitType) interests.push(`Visit Type: ${formData.visitType}`);
+      if (formData.highSchool) interests.push(`School: ${formData.highSchool}`);
+      if (formData.graduationYear) interests.push(`Graduation Year: ${formData.graduationYear}`);
+      if (formData.interestedProgram) interests.push(`Program: ${formData.interestedProgram}`);
+
+      const response = await fetch('/api/admin/visit-requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone || '',
+          preferredDate: formData.visitDate,
+          preferredTime: formData.visitTime,
+          groupSize: parseInt(formData.groupSize) || 1,
+          interests: interests,
+          specialRequests: formData.specialRequests || '',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+        setFormData({
+          visitType: '',
+          visitDate: '',
+          visitTime: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          highSchool: '',
+          graduationYear: '',
+          interestedProgram: '',
+          groupSize: '',
+          specialRequests: '',
+        });
+      } else {
+        setError(data.error || 'Failed to submit visit request');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setError('Failed to submit visit request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: keyof VisitForm, value: string) => {
@@ -300,6 +357,11 @@ export default function VisitPage() {
             <Card className="shadow-lg border-0">
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {error && (
+                    <div className="bg-red-50 border border-red-200 rounded-md p-4">
+                      <p className="text-red-600 text-sm">{error}</p>
+                    </div>
+                  )}
                   {/* Visit Details */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -489,9 +551,16 @@ export default function VisitPage() {
                       type="submit"
                       size="lg"
                       className="w-full bg-purple-600 hover:bg-purple-700"
-                      disabled={!formData.visitType || !formData.visitDate || !formData.firstName || !formData.lastName || !formData.email}
+                      disabled={!formData.visitType || !formData.visitDate || !formData.firstName || !formData.lastName || !formData.email || isSubmitting}
                     >
-                      Schedule My Visit
+                      {isSubmitting ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                          Submitting...
+                        </>
+                      ) : (
+                        'Schedule My Visit'
+                      )}
                     </Button>
                   </div>
                 </form>

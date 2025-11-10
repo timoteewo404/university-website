@@ -374,6 +374,25 @@ export default function AdminDashboard() {
               <Card className="cursor-pointer hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <CardTitle className="flex items-center">
+                    <Mail className="mr-2 h-5 w-5" />
+                    Newsletter
+                  </CardTitle>
+                  <CardDescription>Manage newsletter subscriptions and subscriber data</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-2xl font-bold">1,247</span>
+                    <Badge variant="default">Active</Badge>
+                  </div>
+                  <Button className="w-full" asChild>
+                    <Link href="/admin/newsletters">Manage Subscribers</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
                     <MapPin className="mr-2 h-5 w-5" />
                     Campus Maps
                   </CardTitle>
