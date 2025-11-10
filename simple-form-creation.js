@@ -58,7 +58,7 @@ function createApplicationForm() {
  */
 function setupExistingForm() {
   // Replace with your existing form ID
-  const formId = '1xbHH31FOxQeLfN0rRqFS1j-QN8dscdtIVw2oeSvRLPA';
+  const formId = '1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA';
   
   try {
     const form = FormApp.openById(formId);
@@ -100,5 +100,5 @@ function setupPaymentTrigger(form) {
 // To create a new form, run: createApplicationForm()
 // To use existing form, run: setupExistingForm()
 
-// Your existing form ID: 1xbHH31FOxQeLfN0rRqFS1j-QN8dscdtIVw2oeSvRLPA
+// Your existing form ID: 1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA
 // If you want to use your existing comprehensive form, just run setupExistingForm()

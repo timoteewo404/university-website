@@ -754,7 +754,7 @@ Eyecab International University
 
 // ===== SETUP FUNCTIONS =====
 function setupFormTrigger() {
-  const form = FormApp.openById("1xbHH31FOxQeLfN0rRqFS1j-QN8dscdtIVw2oeSvRLPA");
+  const form = FormApp.openById("1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA");
 
   // Delete existing triggers
   const triggers = ScriptApp.getProjectTriggers();
@@ -814,7 +814,7 @@ function debugFormSetup() {
     Logger.log('��� Debugging form setup...');
 
     // Check form access
-    const form = FormApp.openById("1xbHH31FOxQeLfN0rRqFS1j-QN8dscdtIVw2oeSvRLPA");
+    const form = FormApp.openById("1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA");
     Logger.log('✅ Form accessible: ' + form.getTitle());
     Logger.log('Form ID: ' + form.getId());
     Logger.log('Form URL: https://docs.google.com/forms/d/' + form.getId());
