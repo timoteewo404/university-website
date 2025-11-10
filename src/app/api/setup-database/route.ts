@@ -3,27 +3,22 @@ import { execSync } from 'child_process';
 
 export async function GET() {
   try {
-    console.log('Starting database setup...');
+    console.log('Starting database seeding...');
 
-    // Generate Prisma client
-    console.log('Generating Prisma client...');
-    execSync('npx prisma generate', { stdio: 'inherit' });
-
-    // Push schema to database
-    console.log('Pushing schema to database...');
-    execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
-
-    // Seed the database
+    // Run the seeding script directly
     console.log('Seeding database...');
-    execSync('npx tsx prisma/seed.ts', { stdio: 'inherit' });
+    execSync('npx tsx prisma/seed.ts', {
+      stdio: 'inherit',
+      env: { ...process.env, NODE_ENV: 'production' }
+    });
 
-    console.log('Database setup completed successfully!');
+    console.log('Database seeding completed successfully!');
     return NextResponse.json({
       success: true,
-      message: 'Database setup completed successfully!'
+      message: 'Database seeding completed successfully!'
     });
   } catch (error) {
-    console.error('Error setting up database:', error);
+    console.error('Error seeding database:', error);
     return NextResponse.json({
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error occurred'
