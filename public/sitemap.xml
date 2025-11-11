@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://eiu.app/</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://eiu.app/about</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Admissions Page -->
+  <url>
+    <loc>https://eiu.app/admissions</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Apply Page -->
+  <url>
+    <loc>https://eiu.app/apply</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Colleges Page -->
+  <url>
+    <loc>https://eiu.app/colleges</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://eiu.app/contact</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Events Page -->
+  <url>
+    <loc>https://eiu.app/events</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Leadership Page -->
+  <url>
+    <loc>https://eiu.app/leadership</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- News Page -->
+  <url>
+    <loc>https://eiu.app/news</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Research Page -->
+  <url>
+    <loc>https://eiu.app/research</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Student Life Page -->
+  <url>
+    <loc>https://eiu.app/student-life</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Campus Tour Page -->
+  <url>
+    <loc>https://eiu.app/tour</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Visit Page -->
+  <url>
+    <loc>https://eiu.app/visit</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Campus Page -->
+  <url>
+    <loc>https://eiu.app/campus</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

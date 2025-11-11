@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://eyecab.edu.ug"),
+  metadataBase: new URL("https://eiu.app"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://eyecab.edu.ug",
+    url: "https://eiu.app",
     title: "EYECAB International University | World-Class Education in Uganda",
     description: "A world-class institution inspired by Harvard's excellence, fostering innovation, leadership, and societal impact across Africa and beyond.",
     siteName: "EYECAB International University",

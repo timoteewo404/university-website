@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Block access to admin areas
+Disallow: /admin/
+Disallow: /api/admin/
+
+# Block access to API routes (except public ones)
+Disallow: /api/
+
+# Allow access to public API routes
+Allow: /api/public/
+
+# Block access to private files
+Disallow: /_next/
+Disallow: /.next/
+
+# Sitemap location
+# Sitemap location
+Sitemap: https://eiu.app/sitemap.xml
