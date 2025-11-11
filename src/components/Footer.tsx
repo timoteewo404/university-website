@@ -203,7 +203,7 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Globe className="h-4 w-4 text-red-400 flex-shrink-0" />
-                <span className="text-gray-300">www.eyecab.edu.ug</span>
+                <span className="text-gray-300">www.eiu.app</span>
               </div>
             </div>
           </div>
@@ -216,7 +216,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
           <div className="mb-4 md:mb-0">
-            <p>&copy; 2024 EYECAB International University. All rights reserved.</p>
+         <p>&copy; {new Date().getFullYear()} EYECAB International University. All rights reserved.</p>
           </div>
           <div className="flex space-x-6">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
