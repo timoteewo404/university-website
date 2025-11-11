@@ -4,7 +4,6 @@ const nextConfig = {
   // output: 'export', // Commented out for server-side rendering
   // distDir: 'out',   // Using default .next for server deployment
   trailingSlash: false, // Better for API routes
-  allowedDevOrigins: ["*.preview.same-app.com"],
 
   // Disable type checking during build to avoid Next.js 15 issues
   typescript: {
