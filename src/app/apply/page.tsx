@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, Mail, Phone } from "lucide-react";
-import Link from "next/link";
+// Use plain anchors for external links (Google Forms, mailto, tel)
 
 export default function ApplyPage() {
   return (
@@ -36,23 +36,23 @@ export default function ApplyPage() {
                   Ready to start your journey? Submit your application through our online form with secure Yo! payment integration for UGX 50,000 application fee.
                 </p>
                 <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                  <Link href="https://docs.google.com/forms/d/e/1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA/viewform?usp=sharing&ouid=115153465197269878819" target="_blank" rel="noopener noreferrer">
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA/viewform?usp=sharing&ouid=115153465197269878819" target="_blank" rel="noopener noreferrer">
                     <Mail className="h-4 w-4 mr-2" />
                     Open Application Form
-                  </Link>
+                  </a>
                 </Button>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button variant="outline" asChild className="flex-1">
-                    <Link href="mailto:eyecabinternationaluniversity@gmail.com">
+                    <a href="mailto:eyecabinternationaluniversity@gmail.com">
                       <Mail className="h-4 w-4 mr-2" />
                       Email Support
-                    </Link>
+                    </a>
                   </Button>
                   <Button variant="outline" asChild className="flex-1">
-                    <Link href="tel:0757152499">
+                    <a href="tel:0757152499">
                       <Phone className="h-4 w-4 mr-2" />
                       Call Now
-                    </Link>
+                    </a>
                   </Button>
                 </div>
               </CardContent>
