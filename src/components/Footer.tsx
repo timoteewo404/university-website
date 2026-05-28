@@ -114,7 +114,7 @@ export function Footer() {
           {/* Logo & About */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
-              <Image src="/logo.png" alt="EYECAB Logo" width={50} height={50} className="rounded-lg" />
+              <Image src="/logo2.png" alt="EYECAB Logo" width={50} height={50} className="rounded-lg" />
               <div>
                 <h2 className="text-xl font-bold">EYECAB</h2>
                 <p className="text-sm text-gray-400">International University</p>

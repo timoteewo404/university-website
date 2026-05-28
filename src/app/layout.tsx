@@ -73,19 +73,20 @@ export const metadata: Metadata = {
     },
   },
   icons: {
+    // Use logo2 as the site icon/favicons so the updated branding appears across devices
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo2.png', sizes: 'any' },
+      { url: '/logo2.png', sizes: '16x16', type: 'image/png' },
+      { url: '/logo2.png', sizes: '32x32', type: 'image/png' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/logo2.png', sizes: '180x180', type: 'image/png' },
     ],
     other: [
-      { rel: 'icon', url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
-      { rel: 'icon', url: '/favicon-64x64.png', sizes: '64x64', type: 'image/png' },
-      { rel: 'icon', url: '/favicon-128x128.png', sizes: '128x128', type: 'image/png' },
-      { rel: 'icon', url: '/favicon-256x256.png', sizes: '256x256', type: 'image/png' },
+      { rel: 'icon', url: '/logo2.png', sizes: '48x48', type: 'image/png' },
+      { rel: 'icon', url: '/logo2.png', sizes: '64x64', type: 'image/png' },
+      { rel: 'icon', url: '/logo2.png', sizes: '128x128', type: 'image/png' },
+      { rel: 'icon', url: '/logo2.png', sizes: '256x256', type: 'image/png' },
     ],
   },
   verification: {

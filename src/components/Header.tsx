@@ -19,7 +19,7 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/logo.png" alt="EYECAB Logo" width={80} height={80} className="rounded-lg" />
+            <Image src="/logo2.png" alt="EYECAB Logo" width={80} height={80} className="rounded-lg" />
             <div className="hidden sm:block">
           
             </div>

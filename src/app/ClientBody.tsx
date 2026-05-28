@@ -26,7 +26,7 @@ export function ClientBody({
       {/* Watermark Logo */}
       <div className="fixed inset-0 pointer-events-none z-0 opacity-5">
         <Image
-          src="/logo.png"
+          src="/logo2.png"
           alt="EYECAB University Watermark"
           fill
           className="object-contain"
