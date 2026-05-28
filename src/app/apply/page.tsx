@@ -36,7 +36,7 @@ export default function ApplyPage() {
                   Ready to start your journey? Submit your application through our online form with secure Yo! payment integration for UGX 50,000 application fee.
                 </p>
                 <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA/viewform?usp=sharing&ouid=115153465197269878819" target="_blank" rel="noopener noreferrer">
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScdO3jfZagNU2g5qZpoy9wsM2bvuY_8rcyJSgMDIEA120gJDA/viewform?usp=preview" target="_blank" rel="noopener noreferrer">
                     <Mail className="h-4 w-4 mr-2" />
                     Open Application Form
                   </a>
